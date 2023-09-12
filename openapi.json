@@ -1,0 +1,324 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Kosha-Azure OpenAI Service API",
+    "description": "Kosha-Azure OpenAI APIs for completions and search",
+    "version": "2023-05-15"
+  },
+  "servers": [
+    {
+      "url": "https://{SERVER_URL}/openai",
+      "variables": {
+        "SERVER_URL": {
+          "default": "kosha-japan-gpt-4.openai.azure.com"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "bearer": [
+        "api.read"
+      ]
+    },
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/deployments/{deployment-id}/chat/completions": {
+      "post": {
+        "summary": "Creates a completion for the provided prompt and parameters.",
+        "operationId": "Completions_Create",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deployment-id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "GPT-4"
+            }
+          },
+          {
+            "in": "query",
+            "name": "api-version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2023-05-15"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "example": "gpt-4"
+                  },
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "string"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "content"
+                      ]
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "max_tokens": {
+                    "type": "integer",
+                    "default": 800,
+                    "example": 800
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "default": 0.6,
+                    "example": 0.6
+                  },
+                  "frequency_penalty": {
+                    "type": "number",
+                    "default": 0,
+                    "example": 0
+                  },
+                  "presence_penalty": {
+                    "type": "number",
+                    "default": 0,
+                    "example": 0
+                  },
+                  "top_p": {
+                    "type": "number",
+                    "default": 0.95,
+                    "example": 0.95
+                  },
+                  "stop": {
+                    "type": "object",
+                    "default": null
+                  }
+                }
+              },
+              "example": {
+                "model": "gpt-4",
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "Say this is a test!"
+                  }
+                ],
+                "max_tokens": 800,
+                "temperature": 0.6,
+                "frequency_penalty": 0,
+                "presence_penalty": 0,
+                "top_p": 0.95,
+                "stop": null
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "object": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "integer"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "string"
+                          },
+                          "index": {
+                            "type": "integer"
+                          },
+                          "logprobs": {
+                            "type": "object",
+                            "properties": {
+                              "tokens": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "token_logprobs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "top_logprobs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "text_offset": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          },
+                          "finish_reason": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "completion_tokens": {
+                          "type": "number",
+                          "format": "int32"
+                        },
+                        "prompt_tokens": {
+                          "type": "number",
+                          "format": "int32"
+                        },
+                        "total_tokens": {
+                          "type": "number",
+                          "format": "int32"
+                        }
+                      },
+                      "required": [
+                        "prompt_tokens",
+                        "total_tokens",
+                        "completion_tokens"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "object",
+                    "created",
+                    "model",
+                    "choices"
+                  ]
+                },
+                "example": {
+                  "model": "gpt-4",
+                  "object": "text_completion",
+                  "id": "cmpl-4509KAos68kxOqpE2uYGw81j6m7uo",
+                  "created": 1637097562,
+                  "choices": [
+                    {
+                      "index": 0,
+                      "text": "This is a test.",
+                      "logprobs": null,
+                      "finish_reason": "stop"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "apim-request-id": {
+                "description": "Request ID for troubleshooting purposes",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            },
+            "headers": {
+              "apim-request-id": {
+                "description": "Request ID for troubleshooting purposes",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "errorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "param": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+            "scopes": {}
+          }
+        },
+        "x-tokenInfoFunc": "api.middleware.auth.bearer_auth",
+        "x-scopeValidateFunc": "api.middleware.auth.validate_scopes"
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "name": "api-key",
+        "in": "header"
+      }
+    }
+  }
+}
