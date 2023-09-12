@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "fields": [
+    {
+      "field": "AUTH_TYPE",
+      "displayName": "Chatbot-Connector-For-Kosha-Powered-By-Genai Auth Type",
+      "type": "String",
+      "minLength": 4,
+      "maxLength": 60,
+      "required": true,
+      "description": "Chatbot-Connector-For-Kosha-Powered-By-Genai API Auth Type",
+      "default": "NONE",
+      "example": "NONE",
+      "helpSection": ""
+    },
+    {
+      "field": "SERVER_URL",
+      "displayName": "Chatbot-Connector-For-Kosha-Powered-By-Genai Server Url",
+      "type": "String",
+      "minLength": 3,
+      "maxLength": 40,
+      "required": true,
+      "description": "Chatbot-Connector-For-Kosha-Powered-By-Genai API Server Url",
+      "default": "",
+      "example": "http://",
+      "helpSection": "1. Navigate to the developer portal. 2. Expand the Projects and Apps dropdown in the side navigation. 3. Open the app that is associated with the API key and secret that you want to find or regenerate. 4. Navigate to the Keys and tokens tab. From there, you will find all of the credentials associated with your app. "
+    }
+  ]
+}
