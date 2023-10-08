@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/deployments/{deployment-id}/completions": {
+    "/openai/deployments/{deployment-id}/completions": {
       "post": {
         "summary": "Creates a completion for the provided prompt, parameters and chosen model.",
         "operationId": "Completions_Create",
@@ -327,7 +327,7 @@
         }
       }
     },
-    "/deployments/{deployment-id}/embeddings": {
+    "/openai/deployments/{deployment-id}/embeddings": {
       "post": {
         "summary": "Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.",
         "operationId": "embeddings_create",
@@ -474,7 +474,7 @@
         }
       }
     },
-    "/deployments/{deployment-id}/chat/completions": {
+    "/openai/deployments/{deployment-id}/chat/completions": {
       "post": {
         "summary": "Creates a completion for the chat message",
         "operationId": "ChatCompletions_Create",
